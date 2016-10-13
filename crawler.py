@@ -4,8 +4,7 @@ import html_link_parser as lp
 import url_handler as url_h
 import ip_geolocator
 import traceroute_v2 as trc
-#import time
-#import multiprocessing
+
 import socket
 import re
 
@@ -15,24 +14,17 @@ import datetime, threading
 import subprocess
 
 """
-                                Basic Web Crawler. 
+        Web Crawler. 
+            Searches for all links/subfolders with start_url prefix connected by the web.
 
-        Searches for all links/subfolders with start_url prefix connected by the web.
+        www.txt
+            exports all collected urls in json with location information
+
+        traceroute.txt
+            runs traceroute on all unqiue_urls and saves collected ips to file
 
 """
 
-"""
-    Node
-
-
-    should produce a tree structure, where the root is the first url passed, with list of desendent nodes, 
-
-
-        node:
-                parent_ip
-                url_object
-                children [url_objects]
-"""
 
 #tmp global
 unique_urls = []
@@ -47,6 +39,19 @@ def add_to_unique_ip_list(ip, url):
         l.append(ip)
         l.append(url)
         unique_ips.append(l)
+
+"""
+    Node
+
+
+    should produce a tree structure, where the root is the first url passed, with list of desendent nodes, 
+
+
+        node:
+                parent_ip
+                url_object
+                children [url_objects]
+"""
 
 class Web_Node( object ):
 
@@ -245,5 +250,3 @@ for ip in unique_ips:
 
 write_vector(traceroutes, "traceroute_ips.txt")
 print (traceroutes)
-
-
